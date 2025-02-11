@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class FactoryModule {
 
+  // Add comments for mobile
   @Singleton
   @Provides
   fun providesNewsViewModelFactory(
