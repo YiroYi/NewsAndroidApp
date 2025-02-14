@@ -1,6 +1,6 @@
 package com.anushka.newsapiclient.presentation.di
 
-import com.anushka.newsapiclient.data.api.NewAPIService
+import com.anushka.newsapiclient.data.api.NewsAPIService
 import com.anushka.newsapiclient.data.repository.dataSource.NewsRemoteDataSource
 import com.anushka.newsapiclient.data.repository.dataSourceImpl.NewsRemoteDataSourceImpl
 import dagger.Module
@@ -15,7 +15,7 @@ class RemoteDataModule {
 
   @Singleton
   @Provides
-  fun provideNewsRemoteDataSource(newsAPIService: NewAPIService): NewsRemoteDataSource {
+  fun provideNewsRemoteDataSource(newsAPIService: NewsAPIService): NewsRemoteDataSource {
     return NewsRemoteDataSourceImpl(newsAPIService)
   }
 }

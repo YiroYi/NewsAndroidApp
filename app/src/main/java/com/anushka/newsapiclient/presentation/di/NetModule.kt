@@ -1,7 +1,7 @@
 package com.anushka.newsapiclient.presentation.di
 
 import com.anushka.newsapiclient.BuildConfig
-import com.anushka.newsapiclient.data.api.NewAPIService
+import com.anushka.newsapiclient.data.api.NewsAPIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,13 +18,13 @@ class NetModule {
   fun provideRetrofit(): Retrofit {
     return Retrofit.Builder()
       .addConverterFactory(GsonConverterFactory.create())
-      .baseUrl(BuildConfig.BASE_URL)
+      .baseUrl(BuildConfig.BASE_KEY)
       .build()
   }
 
   @Singleton
   @Provides
-  fun providesNewsAPIService(retrofit: Retrofit): NewAPIService {
-    return retrofit.create(NewAPIService::class.java)
+  fun providesNewsAPIService(retrofit: Retrofit): NewsAPIService {
+    return retrofit.create(NewsAPIService::class.java)
   }
 }
