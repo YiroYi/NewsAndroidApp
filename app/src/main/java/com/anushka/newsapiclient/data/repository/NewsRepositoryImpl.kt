@@ -10,17 +10,25 @@ import retrofit2.Response
 
 class NewsRepositoryImpl(private val newsRemoteDataSource: NewsRemoteDataSource): NewsRepository {
   override suspend fun getNewsHeadlines(country:String, page: Int): Resource<APIResponse> {
-    return responseToSource(newsRemoteDataSource.getTopHeadlines(country, page))
+    val response = newsRemoteDataSource.getTopHeadlines(country, page)
+    return responseToSource(response)
   }
 
   private fun responseToSource(response: Response<APIResponse>): Resource<APIResponse> {
-    if(response.isSuccessful) {
-      response.body()?.let { result ->
-        return Resource.Success(result)
-      }
+    return if (response.isSuccessful) {
+        // Handle successful response
+        response.body()?.let { result ->
+            // Return successful result
+            Resource.Success(result)
+        } ?: run {
+            // Handle the case where the body is null, if applicable
+            Resource.Error("No data received.")
+        }
+    } else {
+        // Handle error response
+        Resource.Error(response.message())
     }
-    return Resource.Error(response.message())
-  }
+}
 
   override suspend fun getSearchedNews(searchQuery: String): Resource<APIResponse> {
     TODO("Not yet implemented")
