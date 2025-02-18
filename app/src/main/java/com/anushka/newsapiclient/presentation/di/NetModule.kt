@@ -1,5 +1,6 @@
 package com.anushka.newsapiclient.presentation.di
 
+import android.util.Log
 import com.anushka.newsapiclient.BuildConfig
 import com.anushka.newsapiclient.data.api.NewsAPIService
 import dagger.Module
@@ -16,10 +17,12 @@ class NetModule {
   @Singleton
   @Provides
   fun provideRetrofit(): Retrofit {
-    return Retrofit.Builder()
+    val url = Retrofit.Builder()
       .addConverterFactory(GsonConverterFactory.create())
       .baseUrl(BuildConfig.BASE_KEY)
       .build()
+    Log.d("API_CALL", "Requesting: $url")
+    return url
   }
 
   @Singleton
