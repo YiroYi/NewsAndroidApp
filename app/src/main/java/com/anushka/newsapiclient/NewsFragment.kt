@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anushka.newsapiclient.data.util.Resource
@@ -38,6 +39,11 @@ class NewsFragment : Fragment() {
     fragmentNewsBinding = FragmentNewsBinding.bind(view)
     viewModel = (activity as MainActivity).viewModel
     newsAdapter = (activity as MainActivity).newsAdapter
+    newsAdapter.setOnItemClickListener { article ->
+      // Use Safe Args for navigation
+      val action = NewsFragmentDirections.actionNewsFragmentToInfoFragment(article)
+      findNavController().navigate(action)
+    }
 
     initRecyclerView()
     viewNewsList()
