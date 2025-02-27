@@ -2,6 +2,7 @@ package com.anushka.newsapiclient.presentation.di
 
 import com.anushka.newsapiclient.domain.repository.NewsRepository
 import com.anushka.newsapiclient.domain.usecase.GetNewsHeadlinesUseCase
+import com.anushka.newsapiclient.domain.usecase.GetSearchedNewsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,5 +17,12 @@ class UseCaseModule {
     newsRepository: NewsRepository
   ): GetNewsHeadlinesUseCase {
     return GetNewsHeadlinesUseCase(newsRepository)
+  }
+
+  @Provides
+  fun providesGetSearchedNewsUseCase(
+    newsRepository: NewsRepository
+  ): GetSearchedNewsUseCase {
+    return GetSearchedNewsUseCase(newsRepository)
   }
 }
