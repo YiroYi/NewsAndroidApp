@@ -1,6 +1,7 @@
 package com.anushka.newsapiclient.presentation.di
 
 import com.anushka.newsapiclient.data.repository.NewsRepositoryImpl
+import com.anushka.newsapiclient.data.repository.dataSource.NewsLocalDataSource
 import com.anushka.newsapiclient.data.repository.dataSource.NewsRemoteDataSource
 import com.anushka.newsapiclient.domain.repository.NewsRepository
 import dagger.Module
@@ -15,7 +16,10 @@ class RepositoryModule {
 
   @Singleton
   @Provides
-  fun provideNewsRepository(newsRemoteDataSource: NewsRemoteDataSource): NewsRepository {
-    return NewsRepositoryImpl(newsRemoteDataSource)
+  fun provideNewsRepository(
+    newsRemoteDataSource: NewsRemoteDataSource,
+    newsLocalDataSource: NewsLocalDataSource
+  ): NewsRepository {
+    return NewsRepositoryImpl(newsRemoteDataSource, newsLocalDataSource)
   }
 }
