@@ -9,9 +9,12 @@ import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
 import com.anushka.newsapiclient.databinding.FragmentInfoBinding
 import com.anushka.newsapiclient.databinding.FragmentNewsBinding
+import com.anushka.newsapiclient.presentation.viewmodel.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class InfoFragment : Fragment() {
   private lateinit var fragmentInfoBinding: FragmentInfoBinding
+  private lateinit var newsViewModel: NewsViewModel
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -27,11 +30,18 @@ class InfoFragment : Fragment() {
 
     val args: InfoFragmentArgs by navArgs()
     val article = args.selectedArticle
+
+    newsViewModel = (activity as MainActivity).viewModel
     fragmentInfoBinding.wvInfo.apply {
       webViewClient = WebViewClient()
-      if(article.url != "") {
+      if(article.url != null) {
         loadUrl(article.url)
       }
+    }
+
+    fragmentInfoBinding.fabSave.setOnClickListener {
+      newsViewModel.saveArticle(article)
+      Snackbar.make(view, "Saved Successfully", Snackbar.LENGTH_LONG).show()
     }
   }
 }
